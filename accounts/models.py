@@ -1,14 +1,18 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Customer(models.Model):
+    
+    user = models.OneToOneField(User, null = True , blank = True,  on_delete=models.CASCADE)#blank true means you can create a customer without user
     name = models.CharField(max_length = 200, null = True) #no error when no name
     phone = models.CharField(max_length = 200,null = True)
     email = models.CharField(max_length = 200, null = True)
+    profile_pic = models.ImageField(default = 'default.jpg',null=True , blank = True)
     date_created = models.DateTimeField(auto_now_add = True, null =True)  #snap the item when the item is created
 
     def __str__(self):  
-        return self.name
+        return str(self.name)
     
 
 class Tag(models.Model):

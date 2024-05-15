@@ -2,7 +2,7 @@
 
 <style>
   .hello-msg{
-    font-size: 18px;
+    font-size: 14px;
     color: #fff;
     margin-right:20px;
 
@@ -12,24 +12,40 @@
 
 <nav class="navbar bg-dark navbar-expand-lg " data-bs-theme="dark">
     <div class="container-fluid">
-      <img src="{% static 'images/logo.png' %}" height = '50' width='100'   alt="">
+      <img src="{% static 'images/crmlogo.png' %}" height = '60' width='90'   alt="">
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
+          {% if request.user.is_staff %}
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Dashboards</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{% url 'products' %}">Products</a>
           </li>
+          {% else %}
+          <li class="nav-item">
+           <a class="nav-link" href="{% url 'account' %}">Settings</a>
+         </li>
+          {%endif%}
         </ul>
+
       </div>  
+      {% comment %} end of container {% endcomment %}
+      <span class="hello-msg ">{{request.user}} </span>
+      <span> <a class="hello-msg nav-link" href="{% url 'logout' %}">Logout</a> </span>
+      <li class="nav-item">
+        <a class="nav-link text-white" href="{% url 'logout' %}">logout</a>
+      </li>
+
+
+
+
     </div>
 
-    <span class="hello-msg"> Hello {{request.user}} </span>
-    <span> <a class="hello-msg" href="{% url 'logout' %}">Logout</a> </span>
+    
     
   </nav>
 
